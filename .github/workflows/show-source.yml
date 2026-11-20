@@ -1,0 +1,34 @@
+name: Show Lucent Source
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Extract source
+        run: |
+          mkdir -p source
+          unzip -q lucent-android-source-v2.zip -d source
+
+      - name: Show MainActivity
+        run: |
+          cat source/lucent-android/app/src/main/java/com/lucent/music/MainActivity.java
+
+      - name: Show PlaybackService
+        run: |
+          cat source/lucent-android/app/src/main/java/com/lucent/music/PlaybackService.java
+
+      - name: Show app Gradle
+        run: |
+          cat source/lucent-android/app/build.gradle
